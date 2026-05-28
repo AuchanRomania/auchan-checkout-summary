@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- ECD-2601 - update packaging tooltip message
+
 ## [0.0.1] - 2024-01-08
 
 ## [0.23.0] - 2023-01-20
