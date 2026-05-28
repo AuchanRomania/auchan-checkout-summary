@@ -1,7 +1,7 @@
 {
   "vendor": "auchan",
   "name": "checkout-summary",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "title": "IO Summary Component",
   "description": "IO summary component to checkout",
   "defaultLocale": "pt-BR",
