@@ -2,8 +2,11 @@ import React, { Fragment } from 'react'
 import { Loading } from 'vtex.render-runtime'
 
 import SummaryItem from './components/SummaryItem'
+import OperationalTaxProgressBar from './components/OperationalTaxProgressBar'
+import DeliveryTaxProgressBar from './components/DeliveryTaxProgressBar'
 import { Totalizer } from './modules/types'
 import { useSummary } from './SummaryContext'
+import './styles.css'
 
 const minTotalizerValue = 0
 const tba = null
@@ -32,7 +35,13 @@ function SummaryTotalizers({
   const { loading, totalizers, total, originalTotal } = useSummary()
 
   if (loading) {
-    return <Loading />
+    return (
+      <Fragment>
+        <Loading />
+        <OperationalTaxProgressBar />
+        <DeliveryTaxProgressBar />
+      </Fragment>
+    )
   }
 
   if (!isShippingPresent(totalizers) && showDeliveryTotal) {
@@ -53,6 +62,9 @@ function SummaryTotalizers({
           large={false}
         />
       ))}
+
+      <OperationalTaxProgressBar />
+      <DeliveryTaxProgressBar />
 
       {showTotal && (
         <SummaryItem

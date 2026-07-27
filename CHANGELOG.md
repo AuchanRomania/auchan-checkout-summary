@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add operational tax progress bar in minicart
+
 ## [0.0.3] - 2026-05-29
 
 ### Changed

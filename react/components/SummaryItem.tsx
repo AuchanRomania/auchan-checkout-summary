@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { useCssHandles } from 'vtex.css-handles'
-import { Tooltip } from 'react-tooltip'
 
 import { slugify } from '../modules/slugify'
 import InfoIcon from '../icons/InfoIcon'
+import OperationalTaxModal from './OperationalTaxModal'
 
 defineMessages({
   Shipping: {
@@ -52,19 +52,14 @@ const CSS_HANDLES = [
   'summaryItemPrice',
   'summaryItemOriginalPrice',
   'packagingTooltipWrapper',
-  'packagingTooltip',
-  'packagingTooltipContent',
+  'packagingInfoIcon',
 ] as const
 
 function SummaryItem({ label, name, large, value, originalValue = 0 }: Props) {
   const handles = useCssHandles(CSS_HANDLES)
+  const [isOperationalTaxModalOpen, setIsOperationalTaxModalOpen] =
+    useState(false)
   const itemId = slugify(label)
-
-  const tooltipContent = (
-    <div className={`${handles.packagingTooltipContent} f6 lh-copy`}>
-      <FormattedMessage id="store/checkout-summary.PackagingTooltip" />
-    </div>
-  )
 
   return (
     <div
@@ -84,21 +79,20 @@ function SummaryItem({ label, name, large, value, originalValue = 0 }: Props) {
           <div
             className={`${handles.packagingTooltipWrapper} inline-flex items-center c-on-base`}
           >
-            <InfoIcon
-              width={20}
-              height={20}
-              className="pointer outline-0"
-              id="packaging-tooltip-info"
-            />
-            <Tooltip
-              anchorSelect="#packaging-tooltip-info"
-              closeOnEsc
-              closeOnScroll
-              closeOnResize
-              className={`${handles.packagingTooltip} br2`}
+            <button
+              type="button"
+              className={`${handles.packagingInfoIcon} bn bg-transparent pointer pa0`}
+              onClick={() => setIsOperationalTaxModalOpen(true)}
+              aria-label="Info"
             >
-              {tooltipContent}
-            </Tooltip>
+              <InfoIcon width={20} height={20} />
+            </button>
+            {isOperationalTaxModalOpen && (
+              <OperationalTaxModal
+                value={value}
+                onClose={() => setIsOperationalTaxModalOpen(false)}
+              />
+            )}
           </div>
         )}
       </div>
