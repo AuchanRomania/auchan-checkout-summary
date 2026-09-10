@@ -5,9 +5,10 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import TaxProgressBarSkeleton from './TaxProgressBarSkeleton'
 import { useSummary } from '../SummaryContext'
+import { useResolvedShippingData } from '../hooks/useResolvedShippingData'
 import {
   getOperationalTaxProgress,
-  isHomeDelivery,
+  isPickupDelivery,
 } from '../utils/operationalTaxProgress'
 
 const messages = defineMessages({
@@ -32,6 +33,7 @@ function OperationalTaxProgressBar() {
   const handles = useCssHandles(CSS_HANDLES)
   const { orderForm } = useOrderForm()
   const { totalizers, total, loading } = useSummary()
+  const { shippingData, loading: shippingLoading } = useResolvedShippingData()
 
   const packagingValue =
     totalizers.find((totalizer) => totalizer.id === 'Packaging')?.value ?? 0
@@ -40,9 +42,8 @@ function OperationalTaxProgressBar() {
     return null
   }
 
-  const shippingData = orderForm?.shippingData
-
-  if (isHomeDelivery(shippingData)) {
+  // Only Click & Collect can reach operational fee 0 — never show for LAD.
+  if (shippingLoading || !isPickupDelivery(shippingData)) {
     return null
   }
 

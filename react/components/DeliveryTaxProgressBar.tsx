@@ -5,6 +5,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import TaxProgressBarSkeleton from './TaxProgressBarSkeleton'
 import { useSummary } from '../SummaryContext'
+import { useResolvedShippingData } from '../hooks/useResolvedShippingData'
 import {
   getDeliveryTaxFreeStatus,
   getDeliveryTaxProgress,
@@ -33,10 +34,9 @@ function DeliveryTaxProgressBar() {
   const handles = useCssHandles(CSS_HANDLES)
   const { orderForm } = useOrderForm()
   const { total, loading } = useSummary()
+  const { shippingData, loading: shippingLoading } = useResolvedShippingData()
 
-  const shippingData = orderForm?.shippingData
-
-  if (!isHomeDelivery(shippingData)) {
+  if (shippingLoading || !isHomeDelivery(shippingData)) {
     return null
   }
 

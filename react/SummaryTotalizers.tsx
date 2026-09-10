@@ -39,7 +39,7 @@ function SummaryTotalizers({
       <Fragment>
         <Loading />
         <OperationalTaxProgressBar />
-        <DeliveryTaxProgressBar />
+        {showDeliveryTotal && <DeliveryTaxProgressBar />}
       </Fragment>
     )
   }
@@ -64,7 +64,7 @@ function SummaryTotalizers({
       ))}
 
       <OperationalTaxProgressBar />
-      <DeliveryTaxProgressBar />
+      {showDeliveryTotal && <DeliveryTaxProgressBar />}
 
       {showTotal && (
         <SummaryItem
