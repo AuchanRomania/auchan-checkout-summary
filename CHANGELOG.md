@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Temporary remove minicart progress bar
+
 ## [0.0.5] - 2026-09-10
 
 ### Added
